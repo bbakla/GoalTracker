@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.goaltracker.entity.Goal;
-import com.goaltracker.entity.SampleTestDataCreator;
+import com.goaltracker.SampleTestDataCreator;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)

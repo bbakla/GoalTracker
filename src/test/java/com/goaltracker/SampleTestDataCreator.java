@@ -1,11 +1,26 @@
-package com.goaltracker.entity;
+package com.goaltracker;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.goaltracker.dto.GoalDto;
+import com.goaltracker.entity.Goal;
+import com.goaltracker.entity.GoalContainer;
+import com.goaltracker.entity.Scope;
+import com.goaltracker.entity.Status;
+
 public class SampleTestDataCreator {
 
+	public static GoalDto createGoalDto() {
+		GoalDto goal = new GoalDto();
+		goal.setName("Sample Goal Dto");
+		goal.setScope(Scope.DAILY);
+		goal.setStatus(Status.NOT_DONE);
+		
+		return goal;
+	}
+	
 	public static Goal createGoal() {
 		Goal goal = new Goal();
 		goal.setCreatedAt(LocalDate.now());

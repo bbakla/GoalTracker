@@ -1,11 +1,9 @@
 package com.goaltracker.repository;
 
-import static com.goaltracker.entity.SampleTestDataCreator.*;
+import static com.goaltracker.SampleTestDataCreator.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
-
-import javax.lang.model.element.Element;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

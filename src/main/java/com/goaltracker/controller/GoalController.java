@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.goaltracker.controller.dto.GoalDto;
 import com.goaltracker.controller.resource.GoalResource;
+import com.goaltracker.dto.GoalDto;
 
 import javax.validation.Valid;
 
@@ -19,6 +19,8 @@ public class GoalController {
 	@PostMapping
 	@ResponseStatus(code=HttpStatus.CREATED)
 	public ResponseEntity<GoalResource> createGoal(@RequestBody @Valid GoalDto goalDto) {
+		
+		
 		
 		return null;
 	}
