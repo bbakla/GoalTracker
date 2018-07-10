@@ -2,7 +2,10 @@ package com.goaltracker.entity;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="goals")
@@ -10,6 +13,9 @@ public class Goal {
 
 	@Id
 	private String id;
+	
+	@NotBlank
+	@Indexed(unique=true)
 	private String name;
 	private LocalDate startedAt;
 	private LocalDate createdAt;

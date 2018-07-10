@@ -2,6 +2,7 @@ package com.goaltracker.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.goaltracker.entity.Goal;
 import com.goaltracker.entity.Status;
@@ -48,6 +50,7 @@ public class GoalRepositoryTest {
 	void canGetAllGoals() {
 		Goal goal1 = SampleTestDataCreator.createGoal();
 		Goal goal2 = SampleTestDataCreator.createGoal();
+		goal2.setName("second name");
 
 		goalRepository.save(goal1);
 		goalRepository.save(goal2);
@@ -82,4 +85,19 @@ public class GoalRepositoryTest {
 		assertEquals(savedGoal.getName(), updatedGoal.getName());
 		assertEquals(savedGoal.getId(), updatedGoal.getId());
 	}
+	
+	@Test
+	void goalNameShouldBeUnique() {
+		Goal goal = SampleTestDataCreator.createGoal();
+		Goal savedGoal = goalRepository.save(goal);
+		
+		assertNotNull(savedGoal.getId());
+		
+		Goal goal2 = SampleTestDataCreator.createGoal();
+		
+		assertThrows(DuplicateKeyException.class, () -> {
+			goalRepository.save(goal2);
+		  });
+
+}
 }

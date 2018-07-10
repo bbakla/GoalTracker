@@ -22,7 +22,8 @@ public class GoalBoxRepositoryTest {
 	@Autowired
 	private GoalBoxRepository containerRepository;
 	
-	@Autowired GoalRepository goalRepository;
+	@Autowired 
+	GoalRepository goalRepository;
 	
 	@AfterEach
 	void cleanUp() {

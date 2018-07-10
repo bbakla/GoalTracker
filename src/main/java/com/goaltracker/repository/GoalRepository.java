@@ -7,5 +7,7 @@ import com.goaltracker.entity.Goal;
 
 @Repository
 public interface GoalRepository extends MongoRepository<Goal, String>{
+	
+	Goal findByName(String name);
 
 }
