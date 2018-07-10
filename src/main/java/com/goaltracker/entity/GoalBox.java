@@ -8,11 +8,11 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class GoalContainer {
+public class GoalBox {
 
 	@Id
 	private String id;
-	private Scope scope;
+	private TimeFrame scope;
 	
 	@DBRef
 	private List<Goal> goals;
@@ -24,10 +24,10 @@ public class GoalContainer {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Scope getScope() {
+	public TimeFrame getScope() {
 		return scope;
 	}
-	public void setScope(Scope scope) {
+	public void setScope(TimeFrame scope) {
 		this.scope = scope;
 	}
 	public List<Goal> getGoals() {

@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.goaltracker.dto.GoalDto;
 import com.goaltracker.entity.Goal;
-import com.goaltracker.entity.GoalContainer;
-import com.goaltracker.entity.Scope;
+import com.goaltracker.entity.GoalBox;
+import com.goaltracker.entity.TimeFrame;
 import com.goaltracker.entity.Status;
 
 public class SampleTestDataCreator {
@@ -15,7 +15,7 @@ public class SampleTestDataCreator {
 	public static GoalDto createGoalDto() {
 		GoalDto goal = new GoalDto();
 		goal.setName("Sample Goal Dto");
-		goal.setScope(Scope.DAILY);
+		goal.setScope(TimeFrame.DAILY);
 		goal.setStatus(Status.NOT_DONE);
 		
 		return goal;
@@ -25,17 +25,17 @@ public class SampleTestDataCreator {
 		Goal goal = new Goal();
 		goal.setCreatedAt(LocalDate.now());
 		goal.setName("Sample Goal");
-		goal.setScope(Scope.DAILY);
+		goal.setScope(TimeFrame.DAILY);
 		goal.setStartedAt(LocalDate.now());
 		goal.setStatus(Status.NOT_DONE);
 		
 		return goal;
 	}
 	
-	public static GoalContainer createGoalContainer() {
-		GoalContainer container = new GoalContainer();
+	public static GoalBox createGoalContainer() {
+		GoalBox container = new GoalBox();
 		container.setDate(LocalDate.now());
-		container.setScope(Scope.DAILY);
+		container.setScope(TimeFrame.DAILY);
 		
 		List<Goal> goals = new ArrayList<>();
 		Goal goal = createGoal();

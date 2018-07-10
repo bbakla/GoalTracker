@@ -1,6 +1,6 @@
 package com.goaltracker.entity;
 
-public enum Scope {
+public enum TimeFrame {
 
 	DAILY,
 	WEEKLY,

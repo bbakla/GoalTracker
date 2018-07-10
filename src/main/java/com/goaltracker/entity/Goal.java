@@ -13,7 +13,7 @@ public class Goal {
 	private String name;
 	private LocalDate startedAt;
 	private LocalDate createdAt;
-	private Scope scope;
+	private TimeFrame scope;
 	private Status status;
 	
 	public String getId() {
@@ -40,10 +40,10 @@ public class Goal {
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
-	public Scope getScope() {
+	public TimeFrame getScope() {
 		return scope;
 	}
-	public void setScope(Scope scope) {
+	public void setScope(TimeFrame scope) {
 		this.scope = scope;
 	}
 	public Status getStatus() {

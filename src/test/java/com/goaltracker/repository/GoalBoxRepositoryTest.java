@@ -13,14 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.goaltracker.entity.Goal;
-import com.goaltracker.entity.GoalContainer;
+import com.goaltracker.entity.GoalBox;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class GoalContainerRepositoryTest {
+public class GoalBoxRepositoryTest {
 
 	@Autowired
-	private GoalContainerRepository containerRepository;
+	private GoalBoxRepository containerRepository;
 	
 	@Autowired GoalRepository goalRepository;
 	
@@ -30,14 +30,14 @@ public class GoalContainerRepositoryTest {
 	}
 
 	@Test
-	void canCreateAGoalContainer() {
-		GoalContainer container = createGoalContainer();
+	void canCreateAGoalBoxWithGoals() {
+		GoalBox container = createGoalContainer();
 		
 		List<Goal> savedGoals = goalRepository.saveAll(container.getGoals());
 		container.getGoals().removeIf(element -> element.getId() == null);
 		container.setGoals(savedGoals);
 		
-		GoalContainer savedContainer = containerRepository.save(container);
+		GoalBox savedContainer = containerRepository.save(container);
 		
 		assertNotNull(savedContainer.getId());
 	}

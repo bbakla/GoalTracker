@@ -1,12 +1,12 @@
 package com.goaltracker.dto;
 
-import com.goaltracker.entity.Scope;
+import com.goaltracker.entity.TimeFrame;
 import com.goaltracker.entity.Status;
 
 public class GoalDto {
 
 	private String name;
-	private Scope scope;
+	private TimeFrame scope;
 	private Status status;
 
 	public String getName() {
@@ -17,11 +17,11 @@ public class GoalDto {
 		this.name = name;
 	}
 
-	public Scope getScope() {
+	public TimeFrame getScope() {
 		return scope;
 	}
 
-	public void setScope(Scope scope) {
+	public void setScope(TimeFrame scope) {
 		this.scope = scope;
 	}
 

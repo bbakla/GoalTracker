@@ -29,7 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.goaltracker.dto.GoalDto;
 import org.springframework.context.support.StaticApplicationContext; 
-import com.goaltracker.repository.GoalContainerRepository;
+import com.goaltracker.repository.GoalBoxRepository;
 import com.goaltracker.repository.GoalRepository;
 
 @SpringBootTest
@@ -37,7 +37,7 @@ import com.goaltracker.repository.GoalRepository;
 public class GoalControllerTest {
 	
 	@Autowired
-	private GoalContainerRepository containerRepository;
+	private GoalBoxRepository containerRepository;
 	
 	@Autowired
 	private GoalRepository goalRepository;
