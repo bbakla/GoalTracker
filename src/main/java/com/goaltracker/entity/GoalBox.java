@@ -14,9 +14,10 @@ public class GoalBox {
 	private String id;
 	private TimeFrame scope;
 	
-	@DBRef
-	private List<Goal> goals;
-	private LocalDate date;
+//	@DBRef
+	private List<GoalInBox> goals;
+	private LocalDate started;
+	private LocalDate finished;
 	
 	public String getId() {
 		return id;
@@ -30,18 +31,32 @@ public class GoalBox {
 	public void setScope(TimeFrame scope) {
 		this.scope = scope;
 	}
-	public List<Goal> getGoals() {
+	public List<GoalInBox> getGoals() {
 		return goals;
 	}
-	public void setGoals(List<Goal> goals) {
+	public void setGoals(List<GoalInBox> goals) {
 		this.goals = goals;
 	}
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getStarted() {
+		return started;
 	}
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setStarted(LocalDate started) {
+		this.started = started;
+	}
+	public LocalDate getFinished() {
+		return finished;
+	}
+	public void setFinished(LocalDate finished) {
+		this.finished = finished;
 	}
 	
+	public void addGoal(GoalInBox goal) {
+		this.goals.add(goal);
+	}
+	
+	public void removeGoal(GoalInBox goal) {
+		this.goals.remove(goal);
+		
+	}
 	
 }
