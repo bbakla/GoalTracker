@@ -63,11 +63,22 @@ public class GoalService {
 		
 		if(goal.isPresent()) {
 			Goal toBeUpdatedGoal = mapper.map(updatedGoalDto, Goal.class);
+			toBeUpdatedGoal.setId(goal.get().getId());
 			Goal updatedGoal = goalRepository.save(toBeUpdatedGoal);
 			
 			return mapper.map(updatedGoal, GoalResource.class);
 		} else {
 			throw new ResourceNotFoundException();
 		}
+	}
+
+	/**
+	 * 1- Goal should not be in a goalbox
+	 * @param id
+	 */
+	public void deleteGoal(String id) {
+		
+		// TODO Auto-generated method stub
+		
 	}
 }
