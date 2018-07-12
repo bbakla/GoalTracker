@@ -69,7 +69,6 @@ public class GoalControllerTest {
 	@AfterEach
 	public void cleanUp() {
 		goalRepository.deleteAll();
-		// containerRepository.deleteAll();
 	}
 
 	@Test

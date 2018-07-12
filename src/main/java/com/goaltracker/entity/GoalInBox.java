@@ -4,14 +4,13 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="goals")
 public class GoalInBox {
 
 	@NotBlank
-	@Indexed(unique=true)
+//	@Indexed(unique=true)
 	private String name;
 	private LocalDate startedAt;
 	private LocalDate createdAt;

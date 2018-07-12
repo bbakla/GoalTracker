@@ -1,20 +1,15 @@
-package com.goaltracker.entity;
+package com.goaltracker.controller.resource;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.goaltracker.entity.TimeFrame;
 
-@Document
-public class GoalBox {
+public class GoalBoxResource {
 
-	@Id
 	private String id;
 	private TimeFrame scope;
-	
-//	@DBRef
-	private List<GoalInBox> goals;
+	private List<GoalInBoxResource> goals;
 	private LocalDate started;
 	private LocalDate finished;
 	
@@ -30,10 +25,10 @@ public class GoalBox {
 	public void setScope(TimeFrame scope) {
 		this.scope = scope;
 	}
-	public List<GoalInBox> getGoals() {
+	public List<GoalInBoxResource> getGoals() {
 		return goals;
 	}
-	public void setGoals(List<GoalInBox> goals) {
+	public void setGoals(List<GoalInBoxResource> goals) {
 		this.goals = goals;
 	}
 	public LocalDate getStarted() {
@@ -48,14 +43,4 @@ public class GoalBox {
 	public void setFinished(LocalDate finished) {
 		this.finished = finished;
 	}
-	
-	public void addGoal(GoalInBox goal) {
-		this.goals.add(goal);
-	}
-	
-	public void removeGoal(GoalInBox goal) {
-		this.goals.remove(goal);
-		
-	}
-	
 }
