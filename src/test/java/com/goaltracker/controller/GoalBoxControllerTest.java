@@ -6,8 +6,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static com.goaltracker.SampleTestDataCreator.*;
@@ -30,7 +32,10 @@ import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.goaltracker.dto.GoalBoxDto;
+import com.goaltracker.dto.GoalDto;
 import com.goaltracker.entity.GoalBox;
+import com.goaltracker.entity.GoalInBox;
 import com.goaltracker.entity.Status;
 import com.goaltracker.entity.TimeFrame;
 import com.goaltracker.repository.GoalBoxRepository;
@@ -107,7 +112,7 @@ public class GoalBoxControllerTest {
 		mockMvc.perform(get(Constants.GOAL_BOX_CONTROLLER_PATH))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(2)))
-				.andExpect(jsonPath("$[0].id", equalTo(inRepo.getId())));
+				.andExpect(jsonPath("$[1].id", equalTo(inRepo.getId())));
 	}
 
 	@Test
@@ -129,8 +134,9 @@ public class GoalBoxControllerTest {
 		mockMvc.perform(put(Constants.GOAL_BOX_CONTROLLER_PATH + "/" + savedGoalBox.getId())
 				.contentType(contentType)
 				.content(json(savedGoalBox)))
+		.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.status", equalTo(savedGoalBox.getScope().toString())));
+				.andExpect(jsonPath("$.scope", equalTo(savedGoalBox.getScope().toString())));
 	}
 
 	@Test
@@ -138,14 +144,20 @@ public class GoalBoxControllerTest {
 		GoalBox goalBox = createGoalContainer();
 		GoalBox savedGoalBox = goalBoxRepository.save(goalBox);
 		
-		savedGoalBox.getGoals().get(0).setStatus(Status.DONE);
+		GoalInBox goalToBeUpdated = savedGoalBox.getGoals().get(0);
+		goalToBeUpdated.setStatus(Status.DONE);
 		
+		GoalDto goalDto = new GoalDto();
+		goalDto.setName(goalToBeUpdated.getName());
+		goalDto.setStatus(goalToBeUpdated.getStatus());
 		
-		mockMvc.perform(put(Constants.GOAL_BOX_CONTROLLER_PATH + "/" + savedGoalBox.getId())
+		mockMvc.perform(patch(Constants.GOAL_BOX_CONTROLLER_PATH + "/" + 
+							savedGoalBox.getId() + "/goals/" + goalToBeUpdated.getName())
 				.contentType(contentType)
-				.content(json(savedGoalBox)))
+				.content(json(goalDto)))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.goals[0]", equalTo(savedGoalBox.getGoals().get(0).getStatus().toString())));
+				.andExpect(jsonPath("$.name", equalTo(goalToBeUpdated.getName())))
+				.andExpect(jsonPath("$.status", equalTo(goalToBeUpdated.getStatus().toString())));
 	}
 
 }
