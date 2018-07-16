@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -51,4 +53,13 @@ public class Goal {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
+//	@PersistenceConstructor
+//	public Goal(String name, LocalDate startedAt, LocalDate createdAt, Status status) {
+//		this.name = name;
+//		this.startedAt = startedAt;
+//		this.createdAt = createdAt;
+//		this.status = status;
+//				
+//	}
 }
