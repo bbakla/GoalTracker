@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,7 @@ public class GoalRepositoryTest {
 	}
 	
 	@Test
+	@Disabled
 	void goalNameShouldBeUnique() {
 		Goal goal = SampleTestDataCreator.createGoal();
 		Goal savedGoal = goalRepository.save(goal);

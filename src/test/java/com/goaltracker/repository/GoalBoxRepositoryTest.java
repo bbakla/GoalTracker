@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.goaltracker.entity.Goal;
 import com.goaltracker.entity.GoalBox;
-import com.goaltracker.entity.GoalInBox;
 import com.goaltracker.entity.Status;
 import com.goaltracker.entity.TimeFrame;
 
@@ -33,11 +33,12 @@ public class GoalBoxRepositoryTest {
 	@AfterEach
 	void cleanUp() {
 		containerRepository.deleteAll();
+		goalRepository.deleteAll();
 	}
 
 	@Test
 	void canCreateAGoalBoxWithGoals() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedContainer = containerRepository.save(container);
 
 		assertNotNull(savedContainer.getId());
@@ -45,10 +46,10 @@ public class GoalBoxRepositoryTest {
 
 	@Test
 	void canAddAGoalToAnExistingBox() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedContainer = containerRepository.save(container);
 
-		GoalInBox goal = createGoalInBox();
+		Goal goal = createGoalInBox();
 		goal.setName("added After box is created");
 		savedContainer.addGoal(goal);
 
@@ -62,7 +63,7 @@ public class GoalBoxRepositoryTest {
 
 	@Test
 	void canChangeStatusOfAGoalInABox() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedContainer = containerRepository.save(container);
 
 		savedContainer.getGoals().get(0).setStatus(Status.DONE);
@@ -75,7 +76,7 @@ public class GoalBoxRepositoryTest {
 
 	@Test
 	void canRemoveAGoalFromAnExistingBox() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedContainer = containerRepository.save(container);
 
 		savedContainer.getGoals().remove(0);
@@ -87,7 +88,7 @@ public class GoalBoxRepositoryTest {
 
 	@Test
 	void canGetATimeBox() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedContainer = containerRepository.save(container);
 
 		GoalBox inRepo = containerRepository.findById(savedContainer.getId()).get();
@@ -97,11 +98,12 @@ public class GoalBoxRepositoryTest {
 
 	@Test
 	void canGetAllTimeBoxes() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		containerRepository.save(container);
 		
-		GoalBox container2 = createGoalContainer();
+		GoalBox container2 = createGoalContainerWithTwoGoalInBoxes();
 		container2.setScope(TimeFrame.WEEKLY);
+//		container2.setGoals(null);
 		
 		containerRepository.save(container2);
 		
@@ -112,7 +114,7 @@ public class GoalBoxRepositoryTest {
 
 	@Test
 	void canDeleteATimeBox() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedContainer = containerRepository.save(container);
 
 		containerRepository.deleteById(savedContainer.getId());

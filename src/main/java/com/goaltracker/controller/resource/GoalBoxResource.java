@@ -3,13 +3,14 @@ package com.goaltracker.controller.resource;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.goaltracker.entity.Goal;
 import com.goaltracker.entity.TimeFrame;
 
 public class GoalBoxResource {
 
 	private String id;
 	private TimeFrame scope;
-	private List<GoalInBoxResource> goals;
+	private List<Goal> goals;
 	private LocalDate started;
 	private LocalDate finished;
 	
@@ -25,10 +26,10 @@ public class GoalBoxResource {
 	public void setScope(TimeFrame scope) {
 		this.scope = scope;
 	}
-	public List<GoalInBoxResource> getGoals() {
+	public List<Goal> getGoals() {
 		return goals;
 	}
-	public void setGoals(List<GoalInBoxResource> goals) {
+	public void setGoals(List<Goal> goals) {
 		this.goals = goals;
 	}
 	public LocalDate getStarted() {

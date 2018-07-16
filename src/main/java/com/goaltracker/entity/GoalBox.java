@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -14,7 +15,8 @@ public class GoalBox {
 	private TimeFrame scope;
 	
 //	@DBRef
-	private List<GoalInBox> goals;
+	private List<Goal> goals;
+	
 	private LocalDate started;
 	private LocalDate finished;
 	
@@ -30,10 +32,10 @@ public class GoalBox {
 	public void setScope(TimeFrame scope) {
 		this.scope = scope;
 	}
-	public List<GoalInBox> getGoals() {
+	public List<Goal> getGoals() {
 		return goals;
 	}
-	public void setGoals(List<GoalInBox> goals) {
+	public void setGoals(List<Goal> goals) {
 		this.goals = goals;
 	}
 	public LocalDate getStarted() {
@@ -49,11 +51,11 @@ public class GoalBox {
 		this.finished = finished;
 	}
 	
-	public void addGoal(GoalInBox goal) {
+	public void addGoal(Goal goal) {
 		this.goals.add(goal);
 	}
 	
-	public void removeGoal(GoalInBox goal) {
+	public void removeGoal(Goal goal) {
 		this.goals.remove(goal);
 		
 	}

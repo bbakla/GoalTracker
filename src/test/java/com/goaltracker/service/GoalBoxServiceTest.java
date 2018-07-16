@@ -1,8 +1,11 @@
 package com.goaltracker.service;
 
-import static com.goaltracker.SampleTestDataCreator.createGoalContainer;
+import static com.goaltracker.SampleTestDataCreator.createGoalContainerWithTwoGoalInBoxes;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
@@ -28,9 +31,16 @@ public class GoalBoxServiceTest {
 	@Autowired
 	private ModelMapper mapper;
 	
+	@AfterEach
+	public void cleanUp() {
+		goalRepository.deleteAll();
+		containerRepository.deleteAll();
+	}
+	
 	@Test
+	@Disabled
 	void shouldAutomaticallySaveGoalsOfAGoalBoxlfTheyAreNotSavedAlready() {
-		GoalBox container = createGoalContainer();
+		GoalBox container = createGoalContainerWithTwoGoalInBoxes();
 		
 //		List<Goal> goals = new ArrayList<>();
 //		container.getGoals().forEach(goal -> {
@@ -51,6 +61,27 @@ public class GoalBoxServiceTest {
 			Goal goalInRepo = goalRepository.findByName(goal.getName());
 			assertNotNull(goalInRepo.getId());
 		});
+	}
+	
+	@Test
+	void modificationOfAGoalShouldNotAffectTheSameGoalInAnotherGoalBox() {
+		GoalBox goalBox = createGoalContainerWithTwoGoalInBoxes();
+		goalRepository.saveAll(goalBox.getGoals());
+		GoalBox savedGoalBox = containerRepository.save(goalBox);
+		GoalBox goalBoxInRepo = containerRepository.findById(savedGoalBox.getId()).get();
+		
+		GoalBox container2 = createGoalContainerWithTwoGoalInBoxes();
+		container2.setGoals(savedGoalBox.getGoals());
+		GoalBox savedGoalBox2 = containerRepository.save(container2);
+		
+		container2.getGoals().get(0).setName("updated name");
+		savedGoalBox2 = containerRepository.save(container2);
+		GoalBox goalBox2InRepo = containerRepository.findById(savedGoalBox2.getId()).get();
+		
+		Goal goal = goalBoxInRepo.getGoals().get(0);
+		Goal updatedGoalinBox2 = goalBox2InRepo.getGoals().get(0);
+		
+		assertNotEquals(goal.getName(), updatedGoalinBox2.getName());
 	}
 
 }

@@ -10,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goaltracker.controller.resource.GoalBoxResource;
-import com.goaltracker.controller.resource.GoalInBoxResource;
 import com.goaltracker.controller.resource.GoalResource;
 import com.goaltracker.dto.GoalBoxDto;
 import com.goaltracker.dto.GoalDto;
 import com.goaltracker.entity.Goal;
 import com.goaltracker.entity.GoalBox;
-import com.goaltracker.entity.GoalInBox;
 import com.goaltracker.repository.GoalBoxRepository;
 import com.goaltracker.repository.GoalRepository;
 
@@ -62,10 +60,10 @@ public class GoalBoxService {
 	private GoalBox convertGoalBoxDtoToGoalBox(GoalBoxDto goalBoxDto) {
 		GoalBox goalBox = mapper.map(goalBoxDto, GoalBox.class);
 		
-		List<GoalInBox> goalsInBox = new ArrayList<>();
+		List<Goal> goalsInBox = new ArrayList<>();
 		
 		goalBoxDto.getGoals().forEach(goal -> {
-			GoalInBox goalInBox = mapper.map(goal, GoalInBox.class);
+			Goal goalInBox = mapper.map(goal, Goal.class);
 			goalsInBox.add(goalInBox);
 		});
 		
@@ -75,10 +73,10 @@ public class GoalBoxService {
 	private GoalBoxResource convertGoalBoxToGoalBoxResource(GoalBox goalBox) {
 		GoalBoxResource goalBoxResource = mapper.map(goalBox, GoalBoxResource.class);
 		
-		List<GoalInBoxResource> goalsInBox = new ArrayList<>();
+		List<GoalResource> goalsInBox = new ArrayList<>();
 		
 		goalBox.getGoals().forEach(goal -> {
-			GoalInBoxResource goalInBoxResource = mapper.map(goal, GoalInBoxResource.class);
+			GoalResource goalInBoxResource = mapper.map(goal, GoalResource.class);
 			goalsInBox.add(goalInBoxResource);
 		});
 		
@@ -120,7 +118,7 @@ public class GoalBoxService {
 		
 		GoalBox updatedGoalBox = goalBoxRepository.save(goalBox);
 		
-		GoalInBox updatedGoalInBox = updatedGoalBox.getGoals()
+		Goal updatedGoalInBox = updatedGoalBox.getGoals()
 						.stream()
 						.filter(goal -> goal.getName().equals(goalName))
 						.findAny()

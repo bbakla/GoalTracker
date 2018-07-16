@@ -15,7 +15,7 @@ public class Goal {
 	private String id;
 	
 	@NotBlank
-	@Indexed(unique=true)
+	@Indexed//(unique=true)
 	private String name;
 	private LocalDate startedAt;
 	private LocalDate createdAt;

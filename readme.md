@@ -1,1 +1,1 @@
-I should try to remove GoalInBox structure and see if it works.
+goal names can be duplicate.

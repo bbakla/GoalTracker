@@ -34,8 +34,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.goaltracker.dto.GoalBoxDto;
 import com.goaltracker.dto.GoalDto;
+import com.goaltracker.entity.Goal;
 import com.goaltracker.entity.GoalBox;
-import com.goaltracker.entity.GoalInBox;
 import com.goaltracker.entity.Status;
 import com.goaltracker.entity.TimeFrame;
 import com.goaltracker.repository.GoalBoxRepository;
@@ -81,7 +81,7 @@ public class GoalBoxControllerTest {
 
 	@Test
 	void canCreateGoalBox() throws Exception {
-		GoalBox goalBox = createGoalContainer();
+		GoalBox goalBox = createGoalContainerWithTwoGoalInBoxes();
 
 		mockMvc.perform(post(Constants.GOAL_BOX_CONTROLLER_PATH)
 				.contentType(contentType)
@@ -92,7 +92,7 @@ public class GoalBoxControllerTest {
 
 	@Test
 	void canGetAGoalBox() throws Exception {
-		GoalBox goalBox = createGoalContainer();
+		GoalBox goalBox = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedGoalBox = goalBoxRepository.save(goalBox);
 		
 		mockMvc.perform(get(Constants.GOAL_BOX_CONTROLLER_PATH + "/"+ savedGoalBox.getId()))
@@ -103,10 +103,10 @@ public class GoalBoxControllerTest {
 
 	@Test
 	void canGetAllBoxes() throws Exception {
-		GoalBox goalBox = createGoalContainer();
+		GoalBox goalBox = createGoalContainerWithTwoGoalInBoxes();
 		goalBoxRepository.save(goalBox);
 		
-		GoalBox goalBox2 = createGoalContainer();
+		GoalBox goalBox2 = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox inRepo = goalBoxRepository.save(goalBox2);
 		
 		mockMvc.perform(get(Constants.GOAL_BOX_CONTROLLER_PATH))
@@ -117,7 +117,7 @@ public class GoalBoxControllerTest {
 
 	@Test
 	void canDeleteAGoalBox() throws Exception{
-		GoalBox goalBox = createGoalContainer();
+		GoalBox goalBox = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedGoalBox = goalBoxRepository.save(goalBox);
 		
 		mockMvc.perform(delete(Constants.GOAL_BOX_CONTROLLER_PATH + "/" + savedGoalBox.getId()))
@@ -126,7 +126,7 @@ public class GoalBoxControllerTest {
 
 	@Test
 	void canUpdateAGoalBox() throws Exception{
-		GoalBox goalBox = createGoalContainer();
+		GoalBox goalBox = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedGoalBox = goalBoxRepository.save(goalBox);
 		
 		savedGoalBox.setScope(TimeFrame.WEEKLY);
@@ -141,10 +141,10 @@ public class GoalBoxControllerTest {
 
 	@Test
 	void canUpdateAGoalInAGoalBox() throws Exception{
-		GoalBox goalBox = createGoalContainer();
+		GoalBox goalBox = createGoalContainerWithTwoGoalInBoxes();
 		GoalBox savedGoalBox = goalBoxRepository.save(goalBox);
 		
-		GoalInBox goalToBeUpdated = savedGoalBox.getGoals().get(0);
+		Goal goalToBeUpdated = savedGoalBox.getGoals().get(0);
 		goalToBeUpdated.setStatus(Status.DONE);
 		
 		GoalDto goalDto = new GoalDto();
